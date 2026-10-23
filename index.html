@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#E9DFD5">
+  <meta name="description" content="NANA: organiza la pañalera y prepara tus próximas salidas.">
+  <title>NANA — Todo listo para salir</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="NANA inicio"><span class="brand-mark">n.</span><span>NANA<small>todo listo para salir</small></span></a>
+    <nav class="nav" aria-label="Navegación principal">
+      <button class="nav-link active" data-view="inicio">Inicio</button>
+      <button class="nav-link" data-view="panalera">Mi pañalera</button>
+      <button class="nav-link" data-view="salidas">Próximas salidas</button>
+      <button class="nav-link" data-view="voz">Díselo a NANA</button>
+      <button class="nav-link" data-view="chat">Chat NANA</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="view active" id="view-inicio">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">TU COMPAÑERA DE CADA DÍA</span>
+          <h1>Todo listo<br>para salir<span class="period">.</span></h1>
+          <p>Menos olvidos. Más momentos.</p>
+          <div class="hero-actions">
+            <button class="btn btn-dark" data-go="panalera">Organizar mi pañalera <span>↗</span></button>
+            <button class="btn btn-light" data-go="salidas">Planear una salida</button>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Ilustración de una pañalera">
+          <div class="sun"></div><div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div>
+          <div class="bag-handle"></div><div class="bag"><div class="bag-pocket"></div><div class="bag-tag">n.</div></div>
+          <div class="art-caption">Pequeños esenciales,<br>grandes momentos.</div>
+        </div>
+      </div>
+      <div class="section-heading"><div><span class="eyebrow">A UN VISTAZO</span><h2>Tu pañalera hoy</h2></div><button class="text-button" data-go="panalera">Ver lista completa ↗</button></div>
+      <div class="overview-grid">
+        <article class="panel progress-panel">
+          <div class="panel-top"><span>Progreso general</span><span class="pill" id="home-progress-label">0% listo</span></div>
+          <div class="progress-number"><strong id="home-packed">0</strong><span id="home-total">/ 9 objetos</span></div>
+          <div class="progress-track"><div id="home-progress-bar" class="progress-fill"></div></div>
+          <p class="muted" id="home-progress-message">Cada pequeño detalle cuenta.</p>
+        </article>
+        <article class="panel essentials-panel"><div class="panel-top"><span>Esenciales</span><span class="soft-icon">✳</span></div><div class="mini-items" id="home-essentials"></div></article>
+        <article class="panel next-panel"><div class="panel-top"><span>Tu próxima aventura</span><span class="soft-icon">↗</span></div><div id="home-next-trip"><p class="muted">Todavía no hay salidas planeadas.</p></div><button class="btn btn-light btn-small" data-go="salidas">Ver mis salidas</button></article>
+      </div>
+      <div class="feature-row">
+        <button class="feature-card voice-feature" data-go="voz"><span class="feature-icon">♫</span><span><strong>Díselo a NANA</strong><small>Habla o escribe lo que necesitas llevar.</small></span><span class="arrow">↗</span></button>
+        <button class="feature-card chat-feature" data-go="chat"><span class="feature-icon">✳</span><span><strong>Pregunta a NANA</strong><small>Ideas útiles para tu próxima salida.</small></span><span class="arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="view" id="view-panalera">
+      <div class="page-intro"><span class="eyebrow">TODO EN SU LUGAR</span><h1>Mi pañalera<span class="period">.</span></h1><p>Una lista simple para salir con más tranquilidad.</p></div>
+      <div class="toolbar"><div class="filter-tabs" role="group" aria-label="Filtrar objetos"><button class="filter active" data-filter="todos">Todos <span id="count-all">0</span></button><button class="filter" data-filter="pendientes">Pendientes <span id="count-pending">0</span></button><button class="filter" data-filter="empacados">Empacados <span id="count-packed">0</span></button></div><button class="btn btn-dark" id="add-item-open">＋ Agregar objeto</button></div>
+      <div class="overall-progress panel"><div><span class="eyebrow">PROGRESO DE TU LISTA</span><strong id="bag-progress-text">0 de 9 empacados</strong></div><div class="progress-track"><div id="bag-progress-bar" class="progress-fill"></div></div></div>
+      <div id="items-grid" class="items-grid"></div>
+      <p class="empty-state hidden" id="items-empty">No hay objetos en este filtro. ¡Todo en orden!</p>
+    </section>
+
+    <section class="view" id="view-salidas">
+      <div class="page-intro split-intro"><div><span class="eyebrow">CADA PLAN, A SU RITMO</span><h1>Próximas salidas<span class="period">.</span></h1><p>Prepara una lista distinta para cada aventura.</p></div><button class="btn btn-dark" id="add-trip-open">＋ Crear salida</button></div>
+      <div class="trip-layout"><div id="trips-list" class="trips-list"></div><aside class="panel trip-detail" id="trip-detail"><div class="detail-empty"><span class="big-symbol">↗</span><h3>Tu próxima aventura empieza aquí</h3><p>Selecciona una salida o crea una nueva para organizar lo que necesitas.</p><button class="btn btn-dark" id="detail-create">Crear una salida</button></div></aside></div>
+    </section>
+
+    <section class="view" id="view-voz">
+      <div class="page-intro"><span class="eyebrow">TÚ DILO, NANA TE AYUDA</span><h1>Díselo a NANA<span class="period">.</span></h1><p>Escribe o dicta lo que quieres llevar. Revisa la lista antes de añadirla.</p></div>
+      <div class="voice-layout"><div class="panel voice-panel"><label for="voice-input">¿Qué necesitas llevar?</label><textarea id="voice-input" rows="4" placeholder="Necesito llevar cuatro pañales, toallitas, dos mudas de ropa, el biberón y el osito…"></textarea><div class="voice-controls"><button class="btn btn-light" id="mic-button"><span>🎙</span> Dictar</button><button class="btn btn-dark" id="analyze-button">Analizar lista ↗</button></div><p class="hint" id="voice-status">Puedes escribir libremente o usar el micrófono si tu navegador lo admite.</p></div><div class="panel preview-panel"><div class="panel-top"><div><span class="eyebrow">ANTES DE AÑADIR</span><h3>Revisa tus objetos</h3></div><span class="pill" id="preview-count">0 objetos</span></div><div id="voice-preview" class="preview-list"><p class="muted">Aquí aparecerán los objetos que NANA identifique.</p></div><div class="add-target"><label for="voice-target">Añadir a</label><select id="voice-target"><option value="general">Mi pañalera</option></select></div><button class="btn btn-dark full-width" id="confirm-voice" disabled>Añadir objetos a la lista</button></div></div>
+    </section>
+
+    <section class="view" id="view-chat">
+      <div class="page-intro"><span class="eyebrow">IDEAS PARA ACOMPAÑARTE</span><h1>Pregunta a NANA<span class="period">.</span></h1><p>Recomendaciones locales y prácticas para preparar tu salida.</p></div>
+      <div class="chat-layout"><div class="panel chat-panel"><div class="chat-header"><div class="chat-avatar">n.</div><div><strong>NANA</strong><small>Asistente de organización · modo local</small></div><span class="online-dot"></span></div><div class="chat-messages" id="chat-messages" aria-live="polite"><div class="message bot-message">¡Holi! ♡ Cuéntame qué plan tienes y te ayudo a preparar una lista. Mis sugerencias son recomendaciones locales, no una IA conectada a internet.</div></div><div class="quick-questions"><button data-question="¿Qué llevo al parque?">¿Qué llevo al parque?</button><button data-question="¿Qué necesito para el pediatra?">¿Qué necesito para el pediatra?</button><button data-question="¿Qué llevo para un viaje largo?">¿Qué llevo para un viaje?</button><button data-question="¿Qué preparo para un día fuera de casa?">¿Día fuera de casa?</button></div><form id="chat-form" class="chat-compose"><input id="chat-input" aria-label="Pregunta para NANA" placeholder="Escribe tu pregunta…" autocomplete="off"><button class="send-button" aria-label="Enviar pregunta">↑</button></form></div><aside class="panel templates-panel"><span class="eyebrow">PARA EMPEZAR</span><h3>Listas sugeridas</h3><p class="muted">Elige una plantilla y adapta los objetos a tu bebé.</p><div class="template-list"><button class="template-button" data-template="parque"><span>🌳</span><span><strong>Un rato en el parque</strong><small>Exterior y juego</small></span><span>↗</span></button><button class="template-button" data-template="pediatra"><span>🩺</span><span><strong>Visita al pediatra</strong><small>Todo lo importante</small></span><span>↗</span></button><button class="template-button" data-template="viaje"><span>🚗</span><span><strong>Viaje largo</strong><small>Más tiempo fuera</small></span><span>↗</span></button><button class="template-button" data-template="dia"><span>☀️</span><span><strong>Todo el día fuera</strong><small>Un poco de todo</small></span><span>↗</span></button></div><div id="template-preview" class="template-preview hidden"></div></aside></div>
+    </section>
+  </main>
+
+  <footer><span class="brand-footer">NANA<span>.</span></span><span>Hecho para salir con más calma.</span><span class="footer-note">Tus datos se guardan en este dispositivo.</span></footer>
+
+  <dialog id="item-dialog" class="modal"><form id="item-form" method="dialog"><div class="modal-heading"><div><span class="eyebrow">TU LISTA, A TU MANERA</span><h2 id="item-dialog-title">Agregar objeto</h2></div><button type="button" class="close-button" data-close="item-dialog" aria-label="Cerrar">×</button></div><input type="hidden" id="item-id"><label for="item-name">Nombre del objeto</label><input id="item-name" required maxlength="60" placeholder="Ej. Osito de apego"><label>Elige un emoji</label><div id="emoji-picker" class="emoji-picker"></div><input type="hidden" id="item-emoji" value="🧸"><label for="item-photo">O sube una fotografía (opcional)</label><input type="file" id="item-photo" accept="image/*"><div id="photo-preview" class="photo-preview"></div><p class="hint">Las imágenes se reducen antes de guardarse. Límite aproximado: 350 KB por imagen.</p><div class="modal-actions"><button type="button" class="btn btn-light" data-close="item-dialog">Cancelar</button><button class="btn btn-dark" type="submit">Guardar objeto</button></div></form></dialog>
+
+  <dialog id="trip-dialog" class="modal"><form id="trip-form" method="dialog"><div class="modal-heading"><div><span class="eyebrow">PLANEA CON CALMA</span><h2 id="trip-dialog-title">Crear una salida</h2></div><button type="button" class="close-button" data-close="trip-dialog" aria-label="Cerrar">×</button></div><input type="hidden" id="trip-id"><label for="trip-name">Nombre de la salida</label><input id="trip-name" required maxlength="80" placeholder="Ej. Paseo al parque"><label for="trip-date">Fecha</label><input id="trip-date" type="date" required><label for="trip-notes">Notas (opcional)</label><textarea id="trip-notes" rows="2" maxlength="500" placeholder="Hora, duración, detalles…"></textarea><div class="trip-select-heading"><label>¿Qué objetos necesitas?</label><button type="button" class="text-button" id="trip-add-custom">＋ Crear objeto nuevo</button></div><div id="trip-item-choices" class="trip-item-choices"></div><div class="modal-actions"><button type="button" class="btn btn-light" data-close="trip-dialog">Cancelar</button><button class="btn btn-dark" type="submit">Guardar salida</button></div></form></dialog>
+
+  <dialog id="template-dialog" class="modal"><div class="modal-heading"><div><span class="eyebrow">UNA BASE FLEXIBLE</span><h2 id="template-dialog-title">Lista sugerida</h2></div><button type="button" class="close-button" data-close="template-dialog" aria-label="Cerrar">×</button></div><p class="muted">Selecciona lo que te sirve; puedes cambiarlo después.</p><div id="template-dialog-items" class="template-checks"></div><div class="modal-actions"><button class="btn btn-light" data-close="template-dialog">Cancelar</button><button class="btn btn-dark" id="template-add-selected">Añadir seleccionados</button></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
